@@ -10,7 +10,7 @@ using Microsoft.AspNet.Identity;
 using Buggity.Models.CodeFirst;
 using System.Xml.Linq;
 using PagedList;
-
+using Buggity.Helpers;
 
 namespace Buggity.Controllers
 {
@@ -19,6 +19,7 @@ namespace Buggity.Controllers
     {
         private ApplicationDbContext db;
         private Helpers.UserRolesHelper helper;
+        List<Project> projectslist = new List<Project>();
 
         public ProjectsController()
         {
@@ -29,8 +30,7 @@ namespace Buggity.Controllers
         [Authorize(Roles = "Admin, PM, Submitter,Developer")]
         public ActionResult Index(int? page)
         {
-            List<Project> projectslist = new List<Project>();
-
+           
 
             string userId = User.Identity.GetUserId();
             bool usrIsAdmiNOrPM = helper.IsUserInAnyRole(userId, "Admin", "PM");
@@ -67,46 +67,72 @@ namespace Buggity.Controllers
             }
             else
             {
-                ApplicationUser usr = db.Users.Find(userId);
-                if (usr != null)
-                {
+               // ApplicationUser usr = db.Users.Find(userId);
+               
 
-                    var dbproject = db.Project.Include(p => p.ApplicationUsers);
+                    //var dbproject = db.Project.Include(p => p.ApplicationUsers);
                     //var list = projectslist.Where(x => x.UserId == usr.Id)
 
                     //    .OrderBy(x => x.Id).ToList();
+                    var usr = db.Users.Find(User.Identity.GetUserId());
 
-                    string userselected = null;
-                    projectslist.Clear();
+                    var rolesHelper = new UserRolesHelper(db);
+                    if (rolesHelper.IsUserInRole(usr.Id, "Developer"))
+                    {
+
+
+                        //projectslist.Clear();
+
+
+                    var dbproject = db.Project.Include(p => p.ApplicationUsers).Where(x => x.UserId == usr.Id).ToList();
 
                     foreach (var item in dbproject)
                     {
-                        var sss = item.ApplicationUsers.Where(x => x.Id == usr.Id);
-
-                        foreach (var itemuser in sss)
+                        projectslist.Add(new Project
                         {
-                            userselected = itemuser.Id;
-                        }
-
-                        if (userselected != null)
-                        {
-                            projectslist.Add(new Project
-                            {
-                                Id = item.Id,
-                                Title = item.Title,
-                                Body = item.Body,
-                                //Owner = item.Owner,
-                                Created = item.Created,
-                                Updated = item.Updated,
-                                //Priority =item.Priority,
-                                //Status = item.Status,
-                                UserId = userselected
-
-
-                            });
-
-                        }
+                            Id = item.Id,
+                            Title = item.Title,
+                            Body = item.Body,
+                            //Owner = item.Owner,
+                            Created = item.Created,
+                            Updated = item.Updated,
+                            //Priority =item.Priority,
+                            //Status = item.Status,
+                            UserId = item.UserId
+                        });
                     }
+
+                    //string userselected = null;
+                    //projectslist.Clear();
+
+                    //foreach (var item in dbproject)
+                    //{
+                    //    var sss = item.ApplicationUsers.Where(x => x.Id == usr.Id);
+
+                    //    foreach (var itemuser in sss)
+                    //    {
+                    //        userselected = itemuser.Id;
+                    //    }
+
+                    //    if (userselected != null)
+                    //    {
+                    //        projectslist.Add(new Project
+                    //        {
+                    //            Id = item.Id,
+                    //            Title = item.Title,
+                    //            Body = item.Body,
+                    //            //Owner = item.Owner,
+                    //            Created = item.Created,
+                    //            Updated = item.Updated,
+                    //            //Priority =item.Priority,
+                    //            //Status = item.Status,
+                    //            UserId = userselected
+
+
+                    //        });
+
+                    //    }
+                    //}
                     return View(projectslist);//user's projects.
                 }
                 else
@@ -427,6 +453,36 @@ namespace Buggity.Controllers
         public ActionResult AdminDashboard()
         {
             return View();
+        }
+
+        public ActionResult UserProjects()
+        {
+            var usr = db.Users.Find(User.Identity.GetUserId());
+
+            var rolesHelper = new UserRolesHelper(db);
+            if (rolesHelper.IsUserInRole(usr.Id, "PM"))
+            {
+
+
+         
+                var dbproject = db.Project.Include(p => p.ApplicationUsers).Where(x => x.UserId == usr.Id);
+
+
+
+               
+
+                return View(dbproject);
+           
+
+
+           
+
+            }
+            else
+            {
+                return View("Create");
+            }
+
         }
 
 
