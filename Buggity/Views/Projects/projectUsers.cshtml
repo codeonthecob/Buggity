@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewBag.Title = "projectUsers";
+}
+
+<h2>Edit Users For Project</ h2 >
+
+
+@using(Html.BeginForm("RoleAddToUser", "Roles"))
+{
+    @*@Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        <p>
+            Username : @Html.TextBox("UserName")
+            Role Name: @Html.DropDownList("RoleName", (IEnumerable<SelectListItem>)ViewBag.Roles, "Select...")
+
+        </p>*@
+
+    <input type="submit" value="Save" />
+
+
+
+
+}
+<hr />
+
+
+<hr />
+@*<h3>Delete user from project</h3>
+
+@using (Html.BeginForm("DeleteRoleForUser", "Roles"))
+{
+    @*@*@*@Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        <p>
+            Username : @Html.TextBox("UserName")
+            Role Name: @Html.DropDownList("RoleName", (IEnumerable<SelectListItem>)ViewBag.Roles, "Select ...")
+
+        </p>*@
+
+    @*<input type="submit" value="Delete this user from Role" />*@
+@*@
+
+

@@ -1,0 +1,151 @@
+﻿@using Buggity.Models
+@model LoginViewModel
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->  
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->  
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->  
+<head>
+    <title>Responsive website template for web design &amp; development agencies</title>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">    
+    <link rel="shortcut icon" href="favicon.ico">  
+    <link href='http://fonts.googleapis.com/css?family=Merriweather+Sans:700,300italic,400italic,700italic,300,400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Russo+One' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">   
+    <!-- Plugins CSS -->    
+    <link rel="stylesheet" href="assets/plugins/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="assets/plugins/elegant_font/css/style.css">
+    <link rel="stylesheet" href="assets/plugins/flexslider/flexslider.css">
+    <link rel="stylesheet" href="assets/plugins/owl-carousel/owl.carousel.css">
+    <link rel="stylesheet" href="assets/plugins/owl-carousel/owl.theme.css">
+    
+    <!-- Theme CSS -->
+    <link id="theme-style" rel="stylesheet" href="assets/css/styles.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head> 
+
+<body class="home-page">     
+    
+        
+        
+        <section id="home-promo" class="home-promo section">
+            <div class="container text-center">                
+                <h2 class="title">
+                    <span class="upper">Tackle Bugs The EASY Way!</span>
+                    <span class="middle">Enteprise Level Support</span>
+                    <span class="bottom">Try Buggity Now!</span>
+                </h2>
+                
+                    
+                    <br />
+                    <br />
+                    <div class="row">
+                        <div class="prima">
+                            <section id="loginForm">
+                               @*=================== Demo Login for Admin =========================*@
+                            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <input type="hidden" name="Email" value="alancravey@gmail.com" />
+                                    <input type="hidden" name="Password" value="Bortles05!!" />
+                                    <input type="submit" value="View as Administrator" class="btn-cta-primary" />
+                            }
+                            
+                            
+                                @*=================== Demo Login for PM =========================*@
+                                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                                    @Html.AntiForgeryToken()
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    <input type="hidden" name="Email" value="pm@pm.com" />
+                                    <input type="hidden" name="Password" value="Coder@207" />
+                                    <input type="submit" value="View as Project Manager" class="btn-cta-primary" />
+                                }
+                                @*=================== Demo Login for Submitter =========================*@
+                                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                                    @Html.AntiForgeryToken()
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    <input type="hidden" name="Email" value="submitter@submitter.com" />
+                                    <input type="hidden" name="Password" value="Coder@207" />
+                                    <input type="submit" value="View as Submitter" class="btn-cta-primary" />
+                                }
+                                @*=================== Demo Login for Developer =========================*@
+                                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                                    @Html.AntiForgeryToken()
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    <input type="hidden" name="Email" value="developer@developer.com" />
+                                    <input type="hidden" name="Password" value="Coder@207" />
+                                    <input type="submit" value="View as Developer" class="btn-cta-primary" />
+                                }
+
+</div>
+
+</section><!--//promo-->
+  <!--//header-wrapper-->
+ <!-- Contact Modal -->
+    <div class="modal modal-contact" id="modal-contact" tabindex="-1" role="dialog" aria-labelledby="contactModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 id="contactModalLabel" class="modal-title text-center">Start your project today</h4>
+                    <p class="intro text-center">Lorem ipsum dolor sit amet consectetur adipiscing elit laoreet tortor consequat nisi scelerisque commodo etiam justo sapien.</p>
+                </div>
+                <div class="modal-body">
+                    <ul class="contact-info list-inline text-center">
+                        <li class="tel"><span class="fs1" aria-hidden="true" data-icon="&#x77;"></span><br /> <a href="+0800123456">0800 123 4567</a></li>
+                        <li class="email"><span class="fs1" aria-hidden="true" data-icon="&#xe010;"></span><br /> <a href="#">hello@yourdevstudio.com</a></li>
+                    </ul>
+                    <form id="contact-form" class="contact-form" method="post" action="#">                    
+                        <div class="row text-center">
+                            <div class="contact-form-inner">
+                                <div class="row">                                                           
+                                    
+                                    <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                                        <label class="sr-only" for="cname">Your name</label>
+                                        <input type="text" class="form-control" id="cname" name="name" placeholder="Your name" minlength="2" required>
+                                    </div>                    
+                                    <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                                        <label class="sr-only" for="cemail">Email address</label>
+                                        <input type="email" class="form-control" id="cemail" name="email" placeholder="Your email address" required>
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+                                        <label class="sr-only" for="cmessage">Your message</label>
+                                        <textarea class="form-control" id="cmessage" name="message" placeholder="Enter your message" rows="12" required></textarea>
+                                    </div>
+                                     <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+                                        <button type="submit" class="btn btn-block btn-cta btn-cta-primary">Send Message</button>
+                                    </div>                           
+                                </div><!--//row-->
+                            </div>
+                        </div><!--//row-->
+                        <div id="form-messages"></div>
+                    </form><!--//contact-form-->
+                </div><!--//modal-body-->
+            </div><!--//modal-content-->
+        </div><!--//modal-dialog-->
+    </div><!--//modal-->
+    
+    
+ 
+  
+    
+    
+    
+    
+</body>
+</html> 
+

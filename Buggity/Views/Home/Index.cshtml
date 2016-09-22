@@ -1,0 +1,139 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h2>
+                <span class="top" style="align-content:center; color:coral; font-weight:bold; font-size:45px; font-family:'Ebrima'">Tackle Bugs The EASY Way!</span><br />
+                <span class="middle" style="align-content:center; color:cadetblue; font-weight:bold; font-size:40px; font-family:'Ebrima'">Enteprise Level Support</span><br /><br /><br />
+
+            </h2>
+        
+            <h2 style="font-size:40px;color:black;font-family:'Ebrima'">Made with the latest in software architecture!</h2><br /><br />
+            <img src="~/img/css3-340x340.png" alt="css3" height="120" width="120" />
+            <img src="~/img/xhtml5_bumper.sh-340x340.png.pagespeed.ic.xTW2kuoStD.png" alt="html5" height="120" width="120" />
+            <img src="~/img/JavaScript.sh-340x340.png" alt="javascript" height="120" width="120" />
+            <img src="~/img/bootstrap.png" alt="bootstrap" height="120" width="120" />
+            <img src="~/img/Csharp.sh-340x340.png" alt="c#" height="120" width="120" />
+        
+        
+        
+        
+        </div>        
+        <div class="col-md-6">
+            <h2>
+                <span class="bottom" style="text-align:right; color:black; font-weight:bold; font-size:35px; font-family:'Segoe Print'"><span class="glyphicon glyphicon-arrow-down"></span>  Try Buggity Now!  <span class="glyphicon glyphicon-arrow-down"></span>  </span>
+            </h2>
+            <br />
+
+
+            <br />
+            
+
+            <div class="row">
+                <div class="col-md-7">
+                    @*=================== Demo Login for Admin =========================*@
+                    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <input type="hidden" name="Email" value="admin@admin.com" />
+                        <input type="hidden" name="Password" value="Bortles05!!" />
+                        <input type="submit" value="Log In as Administrator" class="btn-primary btn-lg btn-success btn-block" display="" /><br />
+
+                    }
+                </div>
+            </div>
+
+            
+
+            <div class="row">
+                <div class="col-md-7">
+                    @*=================== Demo Login for PM =========================*@
+                    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <input type="hidden" name="Email" value="pm@pm.com" />
+                        <input type="hidden" name="Password" value="Bortles05!!" />
+                        <input type="submit" value="Log In as Project Manager" class="btn-primary btn-lg btn-warning btn-block" display="" /><br />
+
+                    }
+                </div>
+            </div>
+
+            
+
+
+            <div class="row">
+                <div class="col-md-7">
+                    @*=================== Demo Login for Submitter =========================*@
+                    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <input type="hidden" name="Email" value="sub@sub.com" />
+                        <input type="hidden" name="Password" value="Bortles05!!" />
+                                <input type="submit" value="Log In as Submitter" class="btn-primary btn-lg btn-info btn-block" display="inline-block" /><br />
+
+                    }
+
+                </div>
+            </div>
+
+            
+
+            <div class="row">
+                <div class="col-md-7">
+                    @*=================== Demo Login for Developer =========================*@
+                    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <input type="hidden" name="Email" value="dev@dev.com" />
+                                <input type="hidden" name="Password" value="Bortles05!!" />
+                                <input type="submit" value="Log In as Developer" class="btn-primary btn-lg btn-danger btn-block" display="inline-block" /><br />
+
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

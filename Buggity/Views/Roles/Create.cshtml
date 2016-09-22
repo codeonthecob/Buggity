@@ -1,0 +1,46 @@
+﻿
+
+
+@model Microsoft.AspNet.Identity.EntityFramework.IdentityRole
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create or Delete</h2>
+
+
+<br />
+<br />
+
+<style type="text/css">
+    #tbrole, .c {
+        border: double;
+    }
+</style>
+
+
+@using (Html.BeginForm())
+{
+    <table id="tbrole">
+        <tr>
+            <td class="c">Enter Role Name To be Created:</td>
+            <td class="c">
+                @Html.EditorFor(m => m.Name)
+            </td>
+        </tr>
+    </table>
+    <input type="submit" value="Create Role" />
+}
+@*@using (Html.BeginForm())
+{
+    <table id="tbrole">
+        <tr>
+            <td class="c">Enter Role Name To be Deleted:</td>
+            <td class="c">
+                @Html.EditorFor(m => m.Name)
+            </td>
+        </tr>
+    </table>
+    <input type="submit" value="Delete Role" />
+}*@

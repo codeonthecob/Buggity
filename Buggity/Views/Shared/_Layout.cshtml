@@ -1,0 +1,394 @@
+﻿<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Buggity</title>
+
+    <!-- Vendor CSS -->
+    <link href="~/vendors/bower_components/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet">
+    <link href="~/vendors/bower_components/animate.css/animate.min.css" rel="stylesheet">
+    <link href="~/vendors/bower_components/sweetalert/dist/sweetalert.css" rel="stylesheet">
+    <link href="~/vendors/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.min.css" rel="stylesheet">
+    <link href="~/vendors/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet">
+
+    <!-- CSS -->
+    <link href="~/css/app_1.min.css" rel="stylesheet">
+    <link href="~/css/app_2.min.css" rel="stylesheet">
+
+    <style type="text/css">
+        .jqstooltip {
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            visibility: hidden;
+            background: rgb(0, 0, 0) transparent;
+            background-color: rgba(0,0,0,0.6);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);
+            -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";
+            color: white;
+            font: 10px arial, san serif;
+            text-align: left;
+            white-space: nowrap;
+            padding: 5px;
+            border: 1px solid white;
+            z-index: 10000;
+        }
+
+        .jqsfield {
+            color: white;
+            font: 10px arial, san serif;
+            text-align: left;
+        }
+    </style>
+    <script src="~/js/jquery.dataTables.js"></script>
+    <script src="~/js/jquery.dataTables.min.js"></script>
+   
+</head>
+<body>
+    <header id="header" class="clearfix" data-ma-theme="blue">
+        <ul class="h-inner">
+            <li class="hi-trigger ma-trigger" data-ma-action="sidebar-open" data-ma-target="#sidebar">
+                <div class="line-wrap">
+                    <div class="line top"></div>
+                    <div class="line center"></div>
+                    <div class="line bottom"></div>
+                </div>
+            </li>
+
+            <li class="hi-logo hidden-xs">
+                <a href="/Home/Index" style="font-size:36px;font-family:'Tahoma'">Buggity</a>
+            </li>
+
+
+
+            @Html.Partial("_LoginPartial")
+            <li class="pull-right">
+                <ul class="hi-menu"></ul>
+            </li>
+        </ul>
+
+        <!-- Top Search Content -->
+        <div class="h-search-wrap">
+            <div class="hsw-inner">
+                <i class="hsw-close zmdi zmdi-arrow-left" data-ma-action="search-close"></i>
+                <input type="text">
+            </div>
+        </div>
+    </header>
+
+    <section id="main">
+        <aside id="sidebar" class="sidebar c-overflow mCustomScrollbar _mCS_1 mCS-autoHide" style="overflow: visible;">
+            <div id="mCSB_1" class="mCustomScrollBox mCS-minimal-dark mCSB_vertical_horizontal mCSB_outside" style="max-height: none;" tabindex="0">
+                <div id="mCSB_1_container" class="mCSB_container mCS_x_hidden mCS_no_scrollbar_x" style="position: relative; top: 23px; left: 0px; width: 100%;" dir="ltr">
+                    <div class="s-profile">
+                        <a href="" data-ma-action="profile-menu-toggle">
+                            <div class="sp-pic">
+                                
+                            </div>
+
+                            <div class="sp-info">
+                                Alan Cravey
+
+                                <i class="zmdi zmdi-caret-down"></i>
+                            </div>
+                        </a>
+
+                        
+                    </div>
+
+                    <ul class="main-menu">
+                        <li class="active">
+                            <a> <i class="zmdi zmdi-home"></i> @Html.ActionLink("Home", "Index", "Home")</a>
+                        </li>
+
+                        @*@if (this.User.IsInRole(null))
+                        {
+                            
+                        }*@
+
+                        @if (this.User.IsInRole("Admin"))
+                        {
+                            <li>@Html.ActionLink("Manage User Roles", "ManageUserRoles", "Roles")</li>
+                            <li>@Html.ActionLink("Tickets", "Index", "Tickets")</li>
+                            <li>@Html.ActionLink("Create Project", "Create", "Projects")</li>
+                            <li>@Html.ActionLink("View Projects", "Index", "Projects")</li>
+                       }
+
+                        @if (this.User.IsInRole("PM"))
+                        {
+                            <li>@Html.ActionLink("View Projects", "Index", "Projects")</li>
+                            <li>@Html.ActionLink("View Tickets", "Index", "Tickets")</li>
+
+
+                       }
+
+
+                        @if (this.User.IsInRole("Developer"))
+
+                        {
+                            <li>@Html.ActionLink("View Tickets", "Index", "Tickets")</li>
+                            <li>@Html.ActionLink("View Projects", "Index", "Projects")</li>
+
+                        }
+
+                        @if (this.User.IsInRole("Submitter"))
+
+                        {
+                            <li>@Html.ActionLink("Create Ticket", "Create", "Tickets")</li>
+                            <li>@Html.ActionLink("View Tickets", "Index", "Tickets")</li>
+                            <li>@Html.ActionLink("View Projects", "Index", "Projects")</li>
+
+                        }
+
+
+
+                        @*<li class="sub-menu">
+                                <a href="" data-ma-action="submenu-toggle"><i class="zmdi zmdi-collection-text"></i> Forms</a>
+
+                                <ul>
+                                    <li><a href="form-elements.html">Basic Form Elements</a></li>
+                                    <li><a href="form-components.html">Form Components</a></li>
+                                    <li><a href="form-examples.html">Form Examples</a></li>
+                                    <li><a href="form-validations.html">Form Validation</a></li>
+                                </ul>
+                            </li>*@
+                        <!--<li class="sub-menu">
+                            <a href="" data-ma-action="submenu-toggle"><i class="zmdi zmdi-swap-alt"></i>User Interface</a>
+                            <ul>
+                                <li><a href="colors.html">Colors</a></li>
+                                <li><a href="animations.html">Animations</a></li>
+                                <li><a href="box-shadow.html">Box Shadow</a></li>
+                                <li><a href="buttons.html">Buttons</a></li>
+                                <li><a href="icons.html">Icons</a></li>
+                                <li><a href="alerts.html">Alerts</a></li>
+                                <li><a href="preloaders.html">Preloaders</a></li>
+                                <li><a href="notification-dialog.html">Notifications & Dialogs</a></li>
+                                <li><a href="media.html">Media</a></li>
+                                <li><a href="components.html">Components</a></li>
+                                <li><a href="other-components.html">Others</a></li>
+                            </ul>
+                        </li>-->
+
+
+
+
+
+                    </ul>
+                </div>
+            </div><div id="mCSB_1_scrollbar_vertical" class="mCSB_scrollTools mCSB_1_scrollbar mCS-minimal-dark mCSB_scrollTools_vertical" style="display: block;"><div class="mCSB_draggerContainer"><div id="mCSB_1_dragger_vertical" class="mCSB_dragger" style="position: absolute; min-height: 50px; height: 377px; top: 0px; display: block; max-height: 521px;" oncontextmenu="return false;"><div class="mCSB_dragger_bar" style="line-height: 50px;"></div></div><div class="mCSB_draggerRail"></div></div></div><div id="mCSB_1_scrollbar_horizontal" class="mCSB_scrollTools mCSB_1_scrollbar mCS-minimal-dark mCSB_scrollTools_horizontal" style="display: none;"><div class="mCSB_draggerContainer"><div id="mCSB_1_dragger_horizontal" class="mCSB_dragger" style="position: absolute; min-width: 50px; width: 0px; left: 0px;" oncontextmenu="return false;"><div class="mCSB_dragger_bar"></div></div><div class="mCSB_draggerRail"></div></div></div>
+        </aside>
+
+        <aside id="chat" class="sidebar">
+
+            <div class="chat-search">
+                <div class="fg-line">
+                    <input type="text" class="form-control" placeholder="Search People">
+                    <i class="zmdi zmdi-search"></i>
+                </div>
+            </div>
+
+            <div class="lg-body c-overflow mCustomScrollbar _mCS_2 mCS-autoHide mCS_no_scrollbar" style="position: relative; overflow: visible;">
+                <div id="mCSB_2" class="mCustomScrollBox mCS-minimal-dark mCSB_vertical_horizontal mCSB_outside" style="max-height: none;" tabindex="0">
+                    <div id="mCSB_2_container" class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y mCS_x_hidden mCS_no_scrollbar_x" style="position: relative; top: 0px; left: 0px; width: 100%;" dir="ltr">
+                        <div class="list-group">
+                            <a class="list-group-item media" href="">
+                                <div class="pull-left p-relative">
+                                    <img class="lgi-img mCS_img_loaded" src="img/profile-pics/2.jpg" alt="">
+                                    <i class="chat-status-busy"></i>
+                                </div>
+                                <div class="media-body">
+                                    <div class="lgi-heading">Jonathan Morris</div>
+                                    <small class="lgi-text">Available</small>
+                                </div>
+                            </a>
+
+                            <a class="list-group-item media" href="">
+                                <div class="pull-left">
+                                    <img class="lgi-img mCS_img_loaded" src="img/profile-pics/1.jpg" alt="">
+                                </div>
+                                <div class="media-body">
+                                    <div class="lgi-heading">David Belle</div>
+                                    <small class="lgi-text">Last seen 3 hours ago</small>
+                                </div>
+                            </a>
+
+                            <a class="list-group-item media" href="">
+                                <div class="pull-left p-relative">
+                                    <img class="lgi-img mCS_img_loaded" src="img/profile-pics/3.jpg" alt="">
+                                    <i class="chat-status-online"></i>
+                                </div>
+                                <div class="media-body">
+                                    <div class="lgi-heading">Fredric Mitchell Jr.</div>
+                                    <small class="lgi-text">Availble</small>
+                                </div>
+                            </a>
+
+                            <a class="list-group-item media" href="">
+                                <div class="pull-left p-relative">
+                                    <img class="lgi-img mCS_img_loaded" src="img/profile-pics/4.jpg" alt="">
+                                    <i class="chat-status-online"></i>
+                                </div>
+                                <div class="media-body">
+                                    <div class="lgi-heading">Glenn Jecobs</div>
+                                    <small class="lgi-text">Availble</small>
+                                </div>
+                            </a>
+
+                            <a class="list-group-item media" href="">
+                                <div class="pull-left">
+                                    <img class="lgi-img mCS_img_loaded" src="img/profile-pics/5.jpg" alt="">
+                                </div>
+                                <div class="media-body">
+                                    <div class="lgi-heading">Bill Phillips</div>
+                                    <small class="lgi-text">Last seen 3 days ago</small>
+                                </div>
+                            </a>
+
+                            <a class="list-group-item media" href="">
+                                <div class="pull-left">
+                                    <img class="lgi-img mCS_img_loaded" src="img/profile-pics/6.jpg" alt="">
+                                </div>
+                                <div class="media-body">
+                                    <div class="lgi-heading">Wendy Mitchell</div>
+                                    <small class="lgi-text">Last seen 2 minutes ago</small>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div><div id="mCSB_2_scrollbar_vertical" class="mCSB_scrollTools mCSB_2_scrollbar mCS-minimal-dark mCSB_scrollTools_vertical" style="display: none;"><div class="mCSB_draggerContainer"><div id="mCSB_2_dragger_vertical" class="mCSB_dragger" style="position: absolute; min-height: 50px; height: 0px; top: 0px;" oncontextmenu="return false;"><div class="mCSB_dragger_bar" style="line-height: 50px;"></div></div><div class="mCSB_draggerRail"></div></div></div><div id="mCSB_2_scrollbar_horizontal" class="mCSB_scrollTools mCSB_2_scrollbar mCS-minimal-dark mCSB_scrollTools_horizontal" style="display: none;"><div class="mCSB_draggerContainer"><div id="mCSB_2_dragger_horizontal" class="mCSB_dragger" style="position: absolute; min-width: 50px; width: 0px; left: 0px;" oncontextmenu="return false;"><div class="mCSB_dragger_bar"></div></div><div class="mCSB_draggerRail"></div></div></div>
+            </div>
+        </aside>
+
+        <section id="content">
+            <div class="container">
+                <div class="block-header">
+
+
+                    @RenderBody()
+
+                </div>
+
+            </div>
+        </section>
+    </section>
+
+
+
+    <!-- Page Loader -->
+    <div class="page-loader" style="display: none;">
+        <div class="preloader pls-blue">
+            <svg class="pl-circular" viewBox="25 25 50 50">
+                <circle class="plc-path" cx="50" cy="50" r="20"></circle>
+            </svg>
+
+            <p>Please wait...</p>
+        </div>
+    </div>
+
+    <!-- Older IE warning message -->
+    <!--[if lt IE 9]>
+        <div class="ie-warning">
+            <h1 class="c-white">Warning!!</h1>
+            <p>You are using an outdated version of Internet Explorer, please upgrade <br/>to any of the following web browsers to access this website.</p>
+            <div class="iew-container">
+                <ul class="iew-download">
+                    <li>
+                        <a href="http://www.google.com/chrome/">
+                            <img src="img/browsers/chrome.png" alt="">
+                            <div>Chrome</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.mozilla.org/en-US/firefox/new/">
+                            <img src="img/browsers/firefox.png" alt="">
+                            <div>Firefox</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://www.opera.com">
+                            <img src="img/browsers/opera.png" alt="">
+                            <div>Opera</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.apple.com/safari/">
+                            <img src="img/browsers/safari.png" alt="">
+                            <div>Safari</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">
+                            <img src="img/browsers/ie.png" alt="">
+                            <div>IE (New)</div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <p>Sorry for the inconvenience!</p>
+        </div>
+    <![endif]-->
+    <!-- Javascript Libraries -->
+    <script src="vendors/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="vendors/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <script src="vendors/bower_components/flot/jquery.flot.js"></script>
+    <script src="vendors/bower_components/flot/jquery.flot.resize.js"></script>
+    <script src="vendors/bower_components/flot.curvedlines/curvedLines.js"></script>
+    <script src="vendors/sparklines/jquery.sparkline.min.js"></script>
+    <script src="vendors/bower_components/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js"></script>
+
+    <script src="vendors/bower_components/moment/min/moment.min.js"></script>
+    <script src="vendors/bower_components/fullcalendar/dist/fullcalendar.min.js "></script>
+    <script src="vendors/bower_components/simpleWeather/jquery.simpleWeather.min.js"></script>
+    <script src="vendors/bower_components/Waves/dist/waves.min.js"></script>
+    <script src="vendors/bootstrap-growl/bootstrap-growl.min.js"></script>
+    <script src="vendors/bower_components/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="vendors/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+
+    <!-- Placeholder for IE9 -->
+    <!--[if IE 9 ]>
+        <script src="vendors/bower_components/jquery-placeholder/jquery.placeholder.min.js"></script>
+    <![endif]-->
+
+    <script src="js/app.min.js"></script>
+
+
+    <div class="flot-tooltip" style="top: 406px; left: 444px; display: none;">Product 1 of 0.90 = 9.27</div><div class="flot-tooltip" style="top: 406px; left: 444px; display: none;">Product 1 of 0.90 = 9.27</div><div class="flot-tooltip" style="top: 406px; left: 444px; display: none;">Product 1 of 0.90 = 9.27</div>
+
+    <br />
+    <br />
+    <div class="container body-content">
+
+        <hr />
+        <br />
+        <br />
+        <br />
+
+        <footer style="text-align: center">
+
+            <p>&copy; @DateTime.Now.Year - Buggity</p><br />
+
+
+        </footer>
+    </div>
+
+
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+    @section Scripts{
+
+        <script type="text/javascript" src="~/js/jquery.datatables.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('#myTable').DataTable();
+            });
+        </script>
+
+    }
+
+</body>
+</html>

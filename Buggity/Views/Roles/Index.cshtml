@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Microsoft.AspNet.Identity.EntityFramework.IdentityRole>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<br />
+
+<style type="text/css">
+    #tbrole, .c {
+        border: double;
+    }
+</style>
+
+<table id="Table" class="table table-hover table-condensed table-responsive table-bordered table-striped">
+    <tr class="info">
+        <td class="c">
+            Role Name
+        </td>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="c">
+                @item.Name
+            </td>
+        </tr>
+    }
+</table>
+
+
+@section Scripts{
+
+    <script type="text/javascript" src="~/js/jquery.datatables.min.js"></script>
+    <script>
+    $(document).ready(function () {
+        $('#Table').DataTable();
+    });
+    </script>
+
+}

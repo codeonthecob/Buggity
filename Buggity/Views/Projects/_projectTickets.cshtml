@@ -1,0 +1,121 @@
+﻿@*@Model  Buggity.Models.CodeFirst.Project*@
+@{
+    ViewBag.Title = "Manage Project Tickets";
+    //Layout = "~/Views/Projects/Details.cshtml";
+
+    var lstUsrProj = (List<Buggity.Models.CodeFirst.Ticket>)ViewData["ProjTickets"];
+
+    bool allowEdit = ViewData.ContainsKey("allowEdit") && ViewData["allowEdit"] != null ? (bool)ViewData["allowEdit"] : false;
+    bool allowDetails = ViewData.ContainsKey("allowDetails") && ViewData["allowDetails"] != null ? (bool)ViewData["allowDetails"] : false;
+    bool allowDelete = ViewData.ContainsKey("allowDelete") && ViewData["allowDelete"] != null ? (bool)ViewData["allowDelete"] : false;
+    bool usrIsDev = ViewData.ContainsKey("usrIsDev") && ViewData["usrIsDev"] != null ? (bool)ViewData["usrIsDev"] : true;
+    bool usrIsSub = ViewData.ContainsKey("usrIsSub") && ViewData["usrIsSub"] != null ? (bool)ViewData["usrIsSub"] : true;
+
+    string disabledValEdit = allowEdit ? "" : "not-active";
+    string allowdisabledValDet = allowDetails ? "" : "not-active";
+    string disabledValDel = allowDelete ? "" : "not-active";
+
+}
+
+<style type="text/css">
+    .not-active {
+        pointer-events: none;
+        cursor: default;
+    }
+</style>
+
+
+
+<h2>@ViewBag.Title</h2>
+
+
+<div class="table-responsive">
+<table id="myTable" class="table table-striped table-hover" style="border: 2px solid lightgray; font-size: 12px;">
+    <thead>
+        <tr>
+            <th>
+                @Html.Label("Title")
+            </th>
+            <th>
+                @Html.Label("CreatedBy")
+            </th>
+            <th>
+                @Html.Label("AssignedTo")
+            </th>
+            <th>
+                @Html.Label("Description")
+            </th>
+            <th>
+                @Html.Label("TicketType")
+            </th>
+            <th>
+                @Html.Label("Priority")
+            </th>
+            <th>
+                @Html.Label("Status")
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in lstUsrProj)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Project.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedBy)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AssigneeId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TicketTypes.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TicketPriorities.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TicketStatuses.Name)
+
+                <td>
+                    @Html.ActionLink("Edit", "Edit", "Tickets", new { id = item.Id }, new { @class = @disabledValEdit }) |
+                    @Html.ActionLink("Details", "Details", "Tickets", new { id = item.Id, usrIsDev = usrIsDev }, new { @class = @allowdisabledValDet }) |
+                    @Html.ActionLink("Delete", "Delete", "Tickets", new { id = item.Id }, new { @class = @disabledValDel })
+                </td>
+            </tr>
+        }
+    </tbody>
+
+
+</table>
+
+
+
+
+
+</div>
+<br />
+<br />
+@Html.ActionLink("Back to List", "Index")
+
+
+
+@ViewBag.ResultMessage
+
+
+
+@section Scripts{
+
+    <script type="text/javascript" src="~/js/jquery.datatables.min.js"></script>
+    <script>
+    $(document).ready(function () {
+        $('#myTable').DataTable();
+    });
+    </script>
+}

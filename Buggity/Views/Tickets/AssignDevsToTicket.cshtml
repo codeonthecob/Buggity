@@ -1,0 +1,39 @@
+﻿
+@Model Buggity.Models.CodeFirst.Ticket
+@{
+    ViewBag.Title = "Assign a Ticket to a Developer";
+    var developers = ViewData.ContainsKey("developers")
+    ? ((List<SelectListItem>)ViewData["developers"]) : (new List<SelectListItem>());
+
+    bool usrIsDev = ViewData.ContainsKey("usrIsDev") && ViewData["usrIsDev"] != null ? (bool)ViewData["usrIsDev"] : true;
+}
+
+<h2>
+    Assign Ticket to a Developer
+ </h2>
+
+
+    @using (Html.BeginForm("AssignTicketToDev", "Tickets"))
+    {
+        @Html.AntiForgeryToken()
+        @Html.Hidden("ticketId", ((Buggity.Models.CodeFirst.Ticket)Model).Id.ToString())
+        @Html.Hidden("usrIsDev", usrIsDev)
+        <div class="form-horizontal">
+            <div class="form-group">
+                <div class="col-md-10">
+                @Html.DropDownList("DevelopersUsrId", developers, "Available Developers:",
+                new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+        </div>
+
+    <input type="submit" value="Save" />
+
+
+
+
+    }
+    <p>
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+

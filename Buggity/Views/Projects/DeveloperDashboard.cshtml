@@ -1,0 +1,37 @@
+﻿@using Microsoft.AspNet.Identity
+
+@{
+    ViewBag.Title = "DeveloperDashboard";
+}
+
+<h2>Developer Dashboard</h2>
+
+<div class="dt-head-left">
+
+    @Html.ActionLink("Welcome " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+
+
+</div>
+
+<br />
+<br />
+
+<div class="header">
+
+
+
+    @Html.ActionLink("View Projects", "Index", null, new { @class = "btn-primary btn-lg" })<br /><br />
+
+
+</div>
+
+<br />
+
+<div class="header">
+
+
+
+    @Html.ActionLink("View Tickets", "Index", "Tickets", null, new { @class = "btn-primary btn-lg" })<br /><br />
+
+
+</div>

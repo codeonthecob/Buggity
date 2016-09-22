@@ -1,0 +1,121 @@
+﻿@model Buggity.Models.CodeFirst.Project
+@using Microsoft.AspNet.Identity
+
+@{
+    ViewBag.Title = "Details";
+    string userId = Request.IsAuthenticated ? User.Identity.GetUserId() : "";
+}
+
+
+
+
+
+    
+
+<h2>Details</h2>
+
+<div>
+    <h4>Project</h4>
+    <hr />
+    
+  
+    
+    <dl id="Table" class="dl-horizontal" style="outline-color:aqua">
+
+       
+        <dt>
+            @Html.DisplayNameFor(model => model.Created)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Created)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Updated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Updated)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Priority)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Priority)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Owner)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Owner)
+        </dd>*@
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Body)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Body)
+        </dd>
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.UserId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ApplicationUsers.Where(x => x.Id == model.Id)
+        </dd>*@
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-danger" })
+    @*@Html.ActionLink("Back to List", "Index") |
+    @Html.ActionLink("Manage Users", "projectUsers")*@
+</p>
+
+
+
+
+
+<div class="container body-content">
+
+    @*@RenderBody()
+        <hr />*@
+    @{ Html.RenderAction("_userProjects", Model);}
+
+</div>
+
+<br />
+<br />
+
+<div class="container body-content">
+
+    @*@RenderBody()
+        <hr />*@
+    @{ Html.RenderAction("_projectTickets", new { ProjectId = Model.Id, UserId = userId });}
+
+</div>
+
+  
